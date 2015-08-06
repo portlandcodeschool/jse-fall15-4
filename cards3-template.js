@@ -1,8 +1,20 @@
 function makeCard(id) {
     // If id is invalid (out of range, etc)
     // ...
-    return null;
+    if ((typeof id)!="number") //wrong type
+        return null;
+    if (id%1 !== 0) //non-integer
+        return null;
+    if (num<1 || num>51) //out of range
+        return null;
 
+    var instance = function(id){
+        rank : this.rank(),
+        suit : this.suit(),
+        color : this.color(),
+        name : this.cardName
+    };
+    
     // Otherwise build an instance object with an id property,
     // representing one card, and attach to it four methods:
     //   rank()
@@ -12,7 +24,7 @@ function makeCard(id) {
     // Each method property should be just a link to the corresponding method
     //  of the factory itself.
 
-    return /* that instance here */;
+    return this.instance  /* that instance here */;
 }
 
 //-----------------------------
@@ -21,14 +33,18 @@ function makeCard(id) {
 
 makeCard.rank = function() { // --> 1..13, NaN
     // code here...
+    return Math.floor(id/4)+1;
 };
 
 makeCard.suit = function() { // --> 1..4, NaN
     // code here...
+    return (id%4)+1;
 };
    
 makeCard.color = function() { // -->"red,"black",NaN
     // code here...
+    var suit=this.suit(id);
+        return suit && ((suit<3)? "red": "black");
 };
 
 makeCard.cardName = function() { //--> string, NaN
@@ -36,6 +52,9 @@ makeCard.cardName = function() { //--> string, NaN
     // but instance objects can store a reference to it called 'name'
 
     // code here...
+    var rank = this.rank(id);
+        var suit = this.suit(id);
+        return rank && suit && (this.rankNames[rank]+' of '+this.suitNames[suit]);
 };
 
 
