@@ -19,19 +19,22 @@ function makeCard(id) {
 // Methods called though instances (where 'this' means the instance):
 //-----------------------------
 
-makeCard.rank = function() { // --> 1..13, NaN
+// CORRECTION: NaN is no longer a possible outcome, since every card instance has
+// its id validated when its created.
+
+makeCard.rank = function() { // --> 1..13
     // code here...
 };
 
-makeCard.suit = function() { // --> 1..4, NaN
+makeCard.suit = function() { // --> 1..4
     // code here...
 };
    
-makeCard.color = function() { // -->"red,"black",NaN
+makeCard.color = function() { // -->"red,"black"
     // code here...
 };
 
-makeCard.cardName = function() { //--> string, NaN
+makeCard.cardName = function() { //--> string
     // This method can't have the key 'name' within the makeCard function,
     // but instance objects can store a reference to it called 'name'
 
