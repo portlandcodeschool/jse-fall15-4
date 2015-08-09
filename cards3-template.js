@@ -1,13 +1,7 @@
 function makeCard(id) {
     // If id is invalid (out of range, etc)
     // ...
-
-    if ((typeof id)!="number") //wrong type
-        return null;
-    if (id%1 !== 0) //non-integer
-        return null;
-    if (id<1 || id>51) //out of range
-        return null;
+    makeCard.isCard(id);
 
     return instance = {
         rank : makeCard.rank,
@@ -66,28 +60,39 @@ makeCard.cardName = function() { //--> string, NaN
     return rank && suit && (rankNames[rank]+' of '+suitNames[suit]);
 };
 
-var mj = makeCard(23);
-console.log(mj.rank())
-console.log(mj.suit())
-console.log(mj.color())
-console.log(mj.name())
 
 
 //-----------------------
 // Methods to be called through factory only:
 //-----------------------
-
-makeCard.isCard = function(thing) { // --> true,false
+    makeCard.isCard = function(id) { // --> true,false
     // return true if thing is a valid card instance made by this factory
-    if 
-}
+       if ((typeof id)!=='number') //wrong type
+            return false; 
+        if (id%1 !== 0) //non-integer
+            return false;
+        if (id<1 || id>51) //out of range
+            return false;
+        return true
+    }
+
+
 
 //---------------------
 // Additional factory properties
 //---------------------
 
 makeCard.fullSet = []; //<-- instead, generate array of 52 card instances
+for (id=0; id < 52; id++) {
+    makeCard.fullSet.push(makeCard(id));
+}
 
+// var mj = makeCard(23);
+// console.log(mj.rank());
+// console.log(mj.suit());
+// console.log(mj.color());
+// console.log(mj.name());
+// console.log(makeCard.isCard(15));
 
 
 //----------------------

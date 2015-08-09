@@ -37,19 +37,19 @@ Here is a [template file](cards3-template.js).
 If you need helper functions (e.g. for validating arguments), you may attach them as additional factory methods.
 
 
-[ ]**b)**  Write another method which is attached to and called through _the factory alone_, not the instances:
+[X]**b)**  Write another method which is attached to and called through _the factory alone_, not the instances:
 
 * `makeCard.isCard(obj)` should return _true_ if `obj` is a valid card object (a product of the factory) and _false_ otherwise.
 
 There's no need for any card instance to have an _isCard_ method (since by calling its method, you've already assumed it's a card).
 
-[ ]**c)** Use the factory to generate an array of 52 card instances (one for each id), and store the array as a property of the factory called `fullSet`:
+[X]**c)** Use the factory to generate an array of 52 card instances (one for each id), and store the array as a property of the factory called `fullSet`:
 
 * `makeCard.fullSet` -->  an array of all 52 possible card instances
 
 When you are finished with parts a-c, you will have the data structure shown here:
 
-![](http://portlandcodeschool.github.io/jse-fall15-4/deque0.svg)
+![X](http://portlandcodeschool.github.io/jse-fall15-4/deque0.svg)
 
 
 [ ]**d)** Edit the file [main.html](main.html) to ensure that its first `<script...src=...>` tag includes the correct filename for your card-factory code, then open [main.html](main.html) in a browser.  Using the console, call your factory to generate and test a few card instances.
