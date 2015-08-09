@@ -2,6 +2,8 @@
 
 _Due Mon. Aug. 10_
 
+[??]Where are program files for programs like Moom stored on the computer?
+
 ####Synopsis
 
 - **Problem 1:** A Card Factory! _[25% of total time]_ **Goals:** The deck of cards returns again to demonstrate the _Factory_ and _Instance_ object patterns.  You'll also practice combining JS files within HTML.
@@ -21,7 +23,7 @@ _Due Mon. Aug. 10_
 
 ---
 
-**1) A Card Factory**  _[25%]_
+[X]**1) A Card Factory**  _[25%]_
 Revisit your playing card functions from homework 3 and repackage them in a Factory pattern.  You will replace the earlier _cardTools_ toolkit object with a function
 `makeCard(id)` (the Factory) which, with each call, makes and returns an object (an Instance) representing a single card.  If _id_ is invalid (not an integer 0..51), the factory should instead return _null_.  Each valid card object stores its own _id_ and has four instance methods to calculate its other attributes:
 
@@ -35,13 +37,13 @@ Here is a [template file](cards3-template.js).
 If you need helper functions (e.g. for validating arguments), you may attach them as additional factory methods.
 
 
-**b)**  Write another method which is attached to and called through _the factory alone_, not the instances:
+[ ]**b)**  Write another method which is attached to and called through _the factory alone_, not the instances:
 
 * `makeCard.isCard(obj)` should return _true_ if `obj` is a valid card object (a product of the factory) and _false_ otherwise.
 
 There's no need for any card instance to have an _isCard_ method (since by calling its method, you've already assumed it's a card).
 
-**c)** Use the factory to generate an array of 52 card instances (one for each id), and store the array as a property of the factory called `fullSet`:
+[ ]**c)** Use the factory to generate an array of 52 card instances (one for each id), and store the array as a property of the factory called `fullSet`:
 
 * `makeCard.fullSet` -->  an array of all 52 possible card instances
 
@@ -50,7 +52,7 @@ When you are finished with parts a-c, you will have the data structure shown her
 ![](http://portlandcodeschool.github.io/jse-fall15-4/deque0.svg)
 
 
-**d)** Edit the file [main.html](main.html) to ensure that its first `<script...src=...>` tag includes the correct filename for your card-factory code, then open [main.html](main.html) in a browser.  Using the console, call your factory to generate and test a few card instances.
+[ ]**d)** Edit the file [main.html](main.html) to ensure that its first `<script...src=...>` tag includes the correct filename for your card-factory code, then open [main.html](main.html) in a browser.  Using the console, call your factory to generate and test a few card instances.
 In Problem 2b), you'll combine the card-factory module with a "deque" module.
 
 ---
