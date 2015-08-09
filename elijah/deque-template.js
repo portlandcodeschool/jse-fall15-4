@@ -110,6 +110,54 @@ makeDeque.shuffleProperly = function() {
     }
 }
 
+// 2b callbacks
+var alphOrder = function(array) {
+    // alphabet comparison by name(), bottom to top
+    var alph = function(a,b) {
+        if (a.name() < b.name()) return 1;
+        if (a.name() > b.name()) return -1;
+        return 0;
+    }
+    return array.sort(alph);
+}
+
+// good lord this is ugly... but it does work
+var suitOrder = function(array) {
+    // callback for sort
+    var suitId = function(a,b) {
+        if (a.id < b.id) return 1;
+        if (a.id > b.id) return -1;
+        return 0;
+    }
+    // arrays for suits
+    var h = [], d = [], s = [], c = [];
+    for (i = 0; i < array.length; i++) {
+        if (array[i].suit() === 1) {
+            h.push(array[i]);
+        } else if (array[i].suit() === 2) {
+            d.push(array[i]);
+        } else if (array[i].suit() === 3) {
+            s.push(array[i]);
+        } else if (array[i].suit() === 4) {
+            c.push(array[i]);
+        }
+    }
+    // rebuild the array
+    h.sort(suitId);
+    d.sort(suitId);
+    s.sort(suitId);
+    c.sort(suitId);
+    return c.concat(s,d,h);
+}
+
+// 2c callbacks
+var nameOrder = function(a,b) {
+    // sort names by second letter, bottom to top
+    if (a.substr(1) < b.substr(1)) return 1;
+    if (a.substr(1) > b.substr(1)) return -1;
+    return 0;
+}
+
 // 2d callbacks
 
 var badShuffle = function(cardA, cardB) {
