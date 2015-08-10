@@ -2,14 +2,13 @@
 //-------
 
 // The factory itself:
-function makeDeque(values) {
+function makeDeque(stuff) {
     // return deque object
     return {
-        values: values,
-        // removed values and copy of original
-        deque: values,
+        values: stuff,
+        // slice to make sure not linked
+        deque: stuff.slice(),
         dropped: [],
-        //
         arrLength: makeDeque.arrLength,
         top: makeDeque.top,
         bottom: makeDeque.bottom,
@@ -21,7 +20,9 @@ function makeDeque(values) {
         map: makeDeque.map,
         sort: makeDeque.sort,
         shuffle: makeDeque.shuffle,
-        shuffleProperly: makeDeque.shuffleProperly
+        shuffleProperly: makeDeque.shuffleProperly,
+        // checks for valid values
+        dequeCheck: makeDeque.dequeCheck
     }
 
 }
@@ -51,8 +52,7 @@ makeDeque.pop = function() {
 
 makeDeque.push = function(val) {
 	// add val to top of values and return new length
-    // XXX part e, verification! not done yet
-    if (1 === 1) {
+    if (this.dequeCheck(val)) {
         this.values.splice(0,0,val);
         return this.arrLength();
     } else {
@@ -69,9 +69,12 @@ makeDeque.shift = function() {
 
 makeDeque.unshift = function(val) {
 	// add val to bottom and return new length
-    // XXX part e, verification! not done yet
-    this.values.splice((this.values.length),0,val);
-    return this.arrLength();
+    if (this.dequeCheck(val)) {
+        this.values.splice((this.values.length),0,val);
+        return this.arrLength();
+    } else {
+        return null;
+    }
 }
 
 makeDeque.cut = function() {
@@ -107,6 +110,19 @@ makeDeque.shuffleProperly = function() {
         t = this.values[len];
         this.values[len] = this.values[i];
         this.values[i] = t;
+    }
+}
+
+// 2e checker function
+makeDeque.dequeCheck = function(val) {
+    // check original values and dropped list
+    // if pushing an 'object' it must be EXACTLY the object from original array
+    if (this.deque.indexOf(val) !== -1 && this.dropped.indexOf(val) !== -1) {
+        // remove from dropped list
+        this.dropped.splice((this.dropped.indexOf(val)),1);
+        return true;
+    } else {
+        return false;
     }
 }
 
@@ -153,4 +169,3 @@ var viewName = function(card) {
     // display cards from shuffledDeck by name
     return card.name();
 }
-// test below for part 2e
