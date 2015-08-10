@@ -89,7 +89,7 @@ makeDeque.map = function(convert) {
 
 makeDeque.sort = function(compare) {
 	// reorder deque values with callback
-    this.values = compare(this.values);
+    this.values.sort(compare);
 }
 
 makeDeque.shuffle = function() {
@@ -111,43 +111,22 @@ makeDeque.shuffleProperly = function() {
 }
 
 // 2b callbacks
-var alphOrder = function(array) {
+var alphOrder = function(a,b) {
     // alphabet comparison by name(), bottom to top
-    var alph = function(a,b) {
-        if (a.name() < b.name()) return 1;
-        if (a.name() > b.name()) return -1;
-        return 0;
-    }
-    return array.sort(alph);
+    if (a.name() < b.name()) return 1;
+    if (a.name() > b.name()) return -1;
+    return 0;
 }
 
-// good lord this is ugly... but it does work
-var suitOrder = function(array) {
-    // callback for sort
-    var suitId = function(a,b) {
-        if (a.id < b.id) return 1;
-        if (a.id > b.id) return -1;
-        return 0;
+var suitOrder = function(a,b) {
+    // sort by suit and rank ascending
+    if (a.suit() < b.suit()) return 1;
+    if (a.suit() > b.suit()) return -1;
+    if (a.suit() === b.suit()) {
+        if (a.rank() < b.rank()) return 1;
+        if (a.rank() > b.rank()) return -1;
     }
-    // arrays for suits
-    var h = [], d = [], s = [], c = [];
-    for (i = 0; i < array.length; i++) {
-        if (array[i].suit() === 1) {
-            h.push(array[i]);
-        } else if (array[i].suit() === 2) {
-            d.push(array[i]);
-        } else if (array[i].suit() === 3) {
-            s.push(array[i]);
-        } else if (array[i].suit() === 4) {
-            c.push(array[i]);
-        }
-    }
-    // rebuild the array
-    h.sort(suitId);
-    d.sort(suitId);
-    s.sort(suitId);
-    c.sort(suitId);
-    return c.concat(s,d,h);
+    return 0;
 }
 
 // 2c callbacks
@@ -174,10 +153,4 @@ var viewName = function(card) {
     // display cards from shuffledDeck by name
     return card.name();
 }
-
-
-// Feel free to write tests for your code!
-// tests
-//var vals = ['a','b','c','d','e','f'];
-//
-//var a = makeDeque(vals);
+// test below for part 2e
