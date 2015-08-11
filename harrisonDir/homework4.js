@@ -108,7 +108,7 @@ function makeCard(id) {
 
   };
 
-  if (id > 0 && id < 52 && id % 1 === 0 ) {
+  if (id >= 0 && id < 52 && id % 1 === 0 ) {
     return newCard;
   } else {
     return null;
@@ -135,7 +135,7 @@ makeCard.isCard = function(obj) {
 
 function fillSet() {
   var array = [];
-  for (var i=0; i<52; i++) {
+  for (var i=0; i<52; i++) {    // 1 to 52, b/c those are possible IDs!
     array[array.length] = makeCard(i);
   }
   return array
@@ -242,21 +242,20 @@ var makeDeque = function(values) {
 return newDeque;
 };
 
-// b) I couldn't get this to work
+
 
 var deckOfCards = makeDeque(makeCard.fullSet);
 
 var ascendingSuits = function(a,b) {
-                                        //Says it can't read property
-  if (a.suit() > b.suit()) {            // 'suit' of null
-    return 1;                           // Why doesn't it think
-  } else if (a.suit() === b.suit()) {   // a & b are cards?
+
+  if (a.suit() > b.suit()) {
+    return 1;
+  } else if (a.suit() === b.suit()) {
     return 0;
   } else return -1;
 };
 
-//deckOfCards.sort(ascendingSuits);     //Does not work
+deckOfCards.sort(ascendingSuits);
+console.log(deckOfCards);
 
 // c)
-
-var names = ['Harrison','']
