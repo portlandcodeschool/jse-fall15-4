@@ -52,7 +52,7 @@ When you are finished with parts a-c, you will have the data structure shown her
 ![X](http://portlandcodeschool.github.io/jse-fall15-4/deque0.svg)
 
 
-[ ]**d)** Edit the file [main.html](main.html) to ensure that its first `<script...src=...>` tag includes the correct filename for your card-factory code, then open [main.html](main.html) in a browser.  Using the console, call your factory to generate and test a few card instances.
+[X]**d)** Edit the file [main.html](main.html) to ensure that its first `<script...src=...>` tag includes the correct filename for your card-factory code, then open [main.html](main.html) in a browser.  Using the console, call your factory to generate and test a few card instances.
 In Problem 2b), you'll combine the card-factory module with a "deque" module.
 
 ---
@@ -61,7 +61,7 @@ In Problem 2b), you'll combine the card-factory module with a "deque" module.
 
 "Deque" (pronounced "deck") is an acronym for "double-ended queue", a sequential data structure similar to an Array but with different rules of access.  While an Array is random-access (i.e. any element is accessible), a deque can only be accessed at either of its ends (like a roll of mints with both ends open).  The two ends can be called "top" and "bottom" (where "top" corresponds to the _end_ of an Array).
 
-**a)** _[25%]_
+[ ]**a)** _[25%]_
 Write a deque factory, a function `makeDeque(values)` which follows the Factory pattern.  Each call to `makeDeque(values)` should build and return a new deque instance, which holds a copy (not just an alias!) of the array _values_.  Each deque instance has the following methods:
 
 * `length()`: return the number of items currently in the deque.  Notice that this can be used to _get_ the deque's length but not to _change_ it. The shared copy must be linked to the factory by a different name, e.g. `makeDeque.arrLength`, although it can be linked to the instance as `length`.
@@ -100,7 +100,7 @@ When your code is finished and you load [main.html](main.html), which includes b
 
 ---
 
-**b)** _[10%]_
+[ ]**b)** _[10%]_
 Edit the file [main.js](main.js) to use your two factories together: make a deque instance called `deckOfCards` by calling your deque factory with `makeCard.fullSet`.  The resulting deque will contain 52 card instances which can be ordered independently from any other deque.  Notice that the card instances are the same objects placed in the original `makeCard.fullSet` array, but each deque offers a different arrangement of them.
 
 This figure represents the new structure:
@@ -126,7 +126,7 @@ assert(deckOfCards.top().name() === 'Two of Spades', 'Failed Two of Spades test'
 
 ---
 
-**c)** _[10%]_
+[ ]**c)** _[10%]_
 Without changing your deque factory, use it to create another deque holding a different data type.  In file `main.js`, define another variable `deckOfNames` to be a deque instance holding the first names of all 16 students in the class.
 
 Sort the names alphabetically, bottom to top, by the SECOND letter of the name (e.g. "Santa" would precede "Claus" because 'a'<'l').  If two names are the same in the second letter, their order doesn't matter.  Then test your result:
@@ -139,7 +139,7 @@ assert(everyone.top() === theFinalName, 'Failed name test');
 
 ---
 
-**d)** _[10%]_ 
+[ ]**d)** _[10%]_ 
 In your deque factory, add a deque instance method `shuffle()` which shuffles the elements into a random order.
 First, try the easy (but slow and ineffective) way by using Array.sort() with a comparison function returning a random result.
 
@@ -151,7 +151,7 @@ Then use _map(...)_ with a different callback function to view them by _card.nam
 
 ---
 
-**e)** _[20%]_
+[ ]**e)** _[20%]_
 Improve your deque implementation to ensure that no one can add unauthorized elements to it (e.g. extra Aces).
 
 Change anything necessary so that `push(val)` and `unshift(val)` only add _val_ if it was part of the original deque and is currently missing (via `pop()` or `shift()`).
