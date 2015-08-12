@@ -4,6 +4,7 @@
 // The factory itself:
 function makeDeque(values) {
 	var temp = {};
+	temp.discardPile = [];
 	temp.values = values.slice();
 	temp.length = makeDeque.arrLength;
 	temp.top = makeDeque.top;
@@ -17,6 +18,8 @@ function makeDeque(values) {
 	temp.sort = makeDeque.sort;
 	temp.shuffle = makeDeque.shuffle;
 	temp.improvedShuffle = makeDeque.improvedShuffle;
+	temp.isInArray = makeDeque.isInArray;
+	temp.removeFromDiscard = makeDeque.removeFromDiscard;
 	return temp;
 }
 
@@ -34,19 +37,39 @@ makeDeque.bottom = function() {
 }
 
 makeDeque.pop = function() {
-	return this.values.pop();
+	var discardPop = this.values.pop();
+	this.discardPile.push(discardPop);
+	return discardPop;
 }
 
 makeDeque.push = function(val) {
-	return this.values.push(val);
+	if (this.isInArray(val)) {
+		this.discardPile.splice(this.removeFromDiscard(val),1);
+		return this.values.push(val);
+	} else {
+		console.log("Nice try...you can't add that card.");
+	}
+}
+
+makeDeque.removeFromDiscard = function(value) {
+	for (i=0; i<this.discardPile.length; i++)
+		if (this.discardPile[i].id === value.id)
+		return i;
 }
 
 makeDeque.shift = function() {
-	return this.values.shift();
+	var discardShift = this.values.shift();
+	this.discardPile.push(discardShift);
+	return discardShift;
 }
 
 makeDeque.unshift = function(val) {
-	return this.values.unshift(val);
+	if (this.isInArray(val)) {
+		this.discardPile.splice(this.removeFromDiscard(val),1);
+		return this.values.unshift(val);
+	} else {
+		console.log("Nice try...you can't add that card.");
+	}
 }
 
 makeDeque.cut = function() {
@@ -80,6 +103,13 @@ makeDeque.improvedShuffle  = function() {
 	return this.values;
 }
 
+makeDeque.isInArray = function(value) {
+  for (i=0; i < this.discardPile.length; i++){
+		if (this.discardPile[i].id === value.id)
+			return true;
+	}
+  return false;
+}
 
 var compare = function(a,b) {
 	if (a>b) return 1;
@@ -92,6 +122,13 @@ var sortShuffle = function(a,b){
 	if (((a.id+1)/(a.id+1))*Math.random() < ((b.id+1)/(b.id+1))*Math.random()) return -1;
 	return 0;
 }
+
+
+deckOfCards1 = makeDeque(makeCard.fullSet)
+deckOfCards1.pop();
+deckOfCards1.pop();
+deckOfCards1.shift();
+deckOfCards1.shift();
 
 
 // Feel free to write tests for your code!

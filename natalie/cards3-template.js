@@ -42,6 +42,7 @@ function makeCard(id) {
   temp.name = makeCard.cardName;
   return temp;
 }
+
 //-----------------------------
 // Methods called though instances (where 'this' means the instance):
 //-----------------------------
