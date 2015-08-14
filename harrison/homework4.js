@@ -312,6 +312,8 @@ var ascendingNames = function(a,b) {
   } else return -1;
 };
 
+
+
 // c)
 
 //Listing all names and making a deque for them
