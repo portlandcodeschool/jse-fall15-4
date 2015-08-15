@@ -1,19 +1,19 @@
 function makeCard(id) {
-    // If id is invalid (out of range, etc)
-    // ...
-    return null;
+  if (makeCard.isValidID(id)){
+    return {
 
-    // Otherwise build an instance object with an id property,
-    // representing one card, and attach to it four methods:
-    //   rank()
-    //   suit()
-    //   color()
-    //   name()
-    // Each method property should be just a link to the corresponding method
-    //  of the factory itself.
+      id: id,
+      rank: makeCard.rank,
+      suit: makeCard.suit,
+      color: makeCard.color,
+      name: makeCard.cardName
 
-    return /* that instance here */;
-}
+      }
+    } else{
+      return null;
+ }
+};
+
 
 //-----------------------------
 // Methods called though instances (where 'this' means the instance):
@@ -22,46 +22,62 @@ function makeCard(id) {
 // CORRECTION: NaN is no longer a possible outcome, since every card instance has
 // its id validated when its created.
 
-makeCard.rank = function() { // --> 1..13
-    // code here...
+makeCard.rank = function() {
+         return Math.floor(this.id/4)+1;
+//  // --> 1..13
+//     // code here...
+ };
+
+makeCard.suit = function() {
+         return ((this.id%4)+1); // --> 1..4
+//     // code here...
+ };
+
+makeCard.color = function() {
+       var theSuit=this.suit(); //may be NaN
+         return theSuit && ((theSuit<3)? "red": "black");
 };
 
-makeCard.suit = function() { // --> 1..4
-    // code here...
-};
-   
-makeCard.color = function() { // -->"red,"black"
-    // code here...
-};
+makeCard.cardName = function() {
+         var theRank = this.rank();
+         var theSuit = this.suit();
+         return theRank && theSuit &&
+         (makeCard.rankNames[theRank]+' of '+makeCard.suitNames[theSuit]); //--> string
+//     // This method can't have the key 'name' within the makeCard function,
+//     // but instance objects can store a reference to it called 'name'
 
-makeCard.cardName = function() { //--> string
-    // This method can't have the key 'name' within the makeCard function,
-    // but instance objects can store a reference to it called 'name'
-
-    // code here...
+//     // code here...
 };
 
+makeCard.rankNames = ['','Ace','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Jack','Queen','King'],
 
-//-----------------------
-// Methods to be called through factory only:
-//-----------------------
+makeCard.suitNames = ['','Hearts','Diamonds','Spades','Clubs'],
 
-makeCard.isCard = function(thing) { // --> true,false
-    // return true if thing is a valid card instance made by this factory
+// //-----------------------
+// // Methods to be called through factory only:
+// //-----------------------
+makeCard.isValidID = function(id){
+    return (typeof id === "number")&&(id%1===0)&&(id>=0)&&(id<=51);
+};
 
-}
+makeCard.isCard = function(thing) {
+        return (typeof thing === 'object')&&(makeCard.rank === thing.rank)&&('id' in thing)&&(makeCard.isValidID(thing.id));// --> true,false
+//     // return true if thing is a valid card instance made by this factory
+  };
 
-//---------------------
-// Additional factory properties
-//---------------------
 
+// //---------------------
+// // Additional factory properties
+// //---------------------
 makeCard.fullSet = []; //<-- instead, generate array of 52 card instances
+    for (var id=0; id<=51; id++){
+      makeCard.fullSet.push(makeCard(id));
+    };
 
 
-
-//----------------------
-// Simple Testing suite
-// Supplement as needed!
+// //----------------------
+// // Simple Testing suite
+// // Supplement as needed!
 
 function assert(claim,message) {
     if (!claim) console.error(message);
@@ -76,6 +92,7 @@ function expectNaN(result, attemptStr) {
         console.log(attemptStr+" expected NaN, got "+result);
     }
 }
+
 
 // card instances needed for assertions:
 var card0 = makeCard(0);
