@@ -3,61 +3,68 @@
 
 // The factory itself:
 function makeDeque(values) {
-	var Obj = {
-	length: makeDeque.length,
-	top: makeDeque.top,
-	bottom: makeDeque.bottom,
-	pop:makeDeque.pop,
-	push: push,
-	shift: shift,
-	unshift: unshift,
-	cut: cut,
-	map: map,
-	sort: sort,
-	};
-	return Obj;
+	return {
+		values: values.slice(),
+		length: makeDeque.arrLength,
+		top: makeDeque.top,
+		bottom: makeDeque.bottom,
+		pop: makeDeque.pop,
+		push: makeDeque.push,
+		shift: makeDeque.shift,
+		unshift: makeDeque.unshift,
+		cut: makeDeque.cut,
+		map: makeDeque.map
+	}
 }
+//Factory creates multiple new deques.
+
 
 // The factory's instance methods:
 makeDeque.arrLength = function() { 	// can't use property named length;
-	return 	???;		// as a function, makeDeque has a predefined length property.//...
-} //if you cna't use .length then what CAN you use?
+	return this.values.length;
+}
 
 makeDeque.top = function() {
-	return 
+	return this.values[0];
 }
 
 makeDeque.bottom = function() {
-	return this.Obj.slice(0);
+	return this.values[this.values.length -1];
 }
 
 makeDeque.pop = function() {
-	return this.Obj.slice(-1);	//...
+	return this.values.pop()
 }
 
 makeDeque.push = function(val) {
-	//...
+	 this.values.push(val);
+	 return this.values.length;
 }
 
 makeDeque.shift = function() {
-	//...
+	return this.values.shift();
 }
 
 makeDeque.unshift = function(val) {
-	//...
+	return this.values.unshift(val);
 }
+
 
 makeDeque.cut = function() {
-	//...
+	var fullLength = this.values.length;
+	var counter = Math.ceil(fullLength/2);
+	var backHalf =this.values.slice(counter);
+	var frontHalf =this.values.slice(0, counter);
+	this.values= backHalf.concat(frontHalf);
 }
 
-makeDeque.map = function(convertValFn) {
-	//...
+
+makeDeque.map = function(convertValFn) {  //
+	return this.values.map(convertValFn);
 }
 
-makeDeque.sort = function(compareValsFn) {
-	//...
+
+makeDeque.sort = function(compareValsFn) {	
+	return this.values.sort(compareValsFn);
+	
 }
-
-// Feel free to write tests for your code!
-
