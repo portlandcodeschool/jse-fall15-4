@@ -15,30 +15,27 @@ function makeCard(id) {
 }
 
 makeCard.rank = function() {
-  return Math.floor(this.id / 4) + 1;
-};
+         return Math.floor(this.id/4)+1;
+ };
 
 makeCard.suit = function() {
-  return ((this.id % 4) + 1); // --> 1..4
-  //     // code here...
-};
+         return ((this.id%4)+1); 
+ };
 
 makeCard.color = function() {
-  var theSuit = this.suit(); //may be NaN
-  return theSuit && ((theSuit < 3) ? "red" : "black");
+       var theSuit=this.suit(); 
+         return theSuit && ((theSuit<3)? "red": "black");
 };
 
 makeCard.cardName = function() {
-  var theRank = this.rank();
-  var theSuit = this.suit();
-  return theRank && theSuit &&
-    (makeCard.rankNames[theRank] + ' of ' + makeCard.suitNames[theSuit]); //--> string
-
+    var s = this.suit(this.id);
+    var r = this.rank(this.id);
+    return makeCard.rankNames[r] + ' of ' + makeCard.suitNames[s];
 };
 
-makeCard.rankNames = ['', 'Ace', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King'],
+makeCard.rankNames = [' ', 'Ace', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King'],
 
-makeCard.suitNames = ['', 'Hearts', 'Diamonds', 'Spade', 'Clubs'],
+makeCard.suitNames = [' ', 'Hearts', 'Diamonds', 'Spades', 'Clubs'],
 
   makeCard.isValidID = function(id) {
     return (typeof id === "number") && (id % 1 === 0) && (id >= 0) && (id <= 51);
@@ -48,7 +45,7 @@ makeCard.isCard = function(thing) {
     return (typeof thing === 'object') && (makeCard.rank === thing.rank) && ('id' in thing) && (makeCard.isValidID(thing.id));
   };
     makeCard.fullSet = [];
-    for (var id = 0; id <= 51; id++) {
+    for (var id = 0; id < 52; id++) {
       makeCard.fullSet.push(makeCard(id));
     }
 
@@ -122,7 +119,6 @@ assert(card0.rank === card3.rank, "Test 51 failed");
 assert(card0.suit === card3.suit, "Test 52 failed");
 assert(card0.name === card3.name, "Test 53 failed");
 //etc...
-
 
 
 
