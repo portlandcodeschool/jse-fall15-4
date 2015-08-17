@@ -17,7 +17,7 @@ function makeDeque(values) {
     cut: makeDeque.cut,
     map: makeDeque.map,
     shuffleProperly: makeDeque.shuffleProperly, 
-
+    check: makeDeque.check,
 
   };
 }
@@ -77,4 +77,17 @@ makeDeque.shuffleProperly = function() {
         this.values[i] = t;
     }
 };
+
+//2.e
+
+makeDeque.check = function(val) {
+    var dequeIndex = this.deque.indexOf(val);
+    var absentIndex = this.dropped.indexOf(val);
+    if (dequeIndex !== -1 && absentIndex !== -1) {
+        this.dropped.splice(absentIndex,1);
+        return true;
+    } else {
+        return false;
+    }
+}
 
