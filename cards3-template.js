@@ -1,19 +1,45 @@
 function makeCard(id) {
     // If id is invalid (out of range, etc)
+    //id must be a number
+    //id must be between 0 and 51
+
+    if(typeof id !== "number")
+    {
+        return null;
+    }
+
+    if(id < 0 || id > 51)
+    {
+        return null;
+    }
     // ...
-    return null;
+    // return null;
 
     // Otherwise build an instance object with an id property,
+    var card = {
+        id: id,
+        rank: makeCard.rank,
+        suit: makeCard.suit,
+        color: makeCard.color,
+        name: makeCard.cardName
+        //rankNames: makeCard.rankNames,
+        //suitNames: makeCard.suitNames
+    };
+
     // representing one card, and attach to it four methods:
     //   rank()
     //   suit()
-    //   color()
+    //   color()    
     //   name()
     // Each method property should be just a link to the corresponding method
     //  of the factory itself.
 
-    return /* that instance here */;
+    return card;
 }
+    makeCard.rankNames = ['','Ace','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten',
+                'Jack','Queen','King'];
+    makeCard.suitNames = ['','Hearts','Diamonds','Spade','Clubs'];
+
 
 //-----------------------------
 // Methods called though instances (where 'this' means the instance):
@@ -23,22 +49,24 @@ function makeCard(id) {
 // its id validated when its created.
 
 makeCard.rank = function() { // --> 1..13
-    // code here...
+    return Math.floor(this.id/4)+1;
 };
 
 makeCard.suit = function() { // --> 1..4
-    // code here...
+    return (this.id%4)+1;
 };
    
 makeCard.color = function() { // -->"red,"black"
-    // code here...
+    return (this.suit(this.id) < 3)? "red": "black";
 };
 
 makeCard.cardName = function() { //--> string
     // This method can't have the key 'name' within the makeCard function,
     // but instance objects can store a reference to it called 'name'
 
-    // code here...
+    return makeCard.rankNames[this.rank(this.id)]+' of '+ makeCard.suitNames[this.suit(this.id)];
+
+
 };
 
 
@@ -48,7 +76,24 @@ makeCard.cardName = function() { //--> string
 
 makeCard.isCard = function(thing) { // --> true,false
     // return true if thing is a valid card instance made by this factory
+    var card = makeCard(thing.id);
 
+    if(card == null)
+    {
+        return false;
+    }
+
+    if(thing.id !== card.id)
+    {
+        return false;
+    }
+
+    if(thing.rank !== card.rank)
+    {
+        return false;
+    }
+
+    return true;
 }
 
 //---------------------
@@ -56,6 +101,12 @@ makeCard.isCard = function(thing) { // --> true,false
 //---------------------
 
 makeCard.fullSet = []; //<-- instead, generate array of 52 card instances
+
+for(var i=0; i<52; i++){
+    var card1 = makeCard(i);
+    makeCard.fullSet.push(card1);
+}
+
 
 
 

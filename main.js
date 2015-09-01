@@ -5,10 +5,43 @@
 
 // 2b:
 // make a deque instance to store a full deck of cards:
-var deckOfCards;// = makeDeque(makeCard.fullSet);
+var deckOfCards = makeDeque(makeCard.fullSet);// = makeDeque(makeCard.fullSet);
+
+var sortBySuitAndRank = function(a,b)
+{
+	//get the suit of both cards
+	var aSuit = a.suit();
+	var bSuit = b.suit();
+
+	//get the rank of both cards
+	var aRank = a.rank();
+	var bRank = b.rank();
+
+	//same card id -- these cards are identical
+	if(a.id == b.id)
+		return 0;
+
+	//card A has a higher suit
+	if(aSuit > bSuit)
+		return 1;
+
+	//card A has a higher rank
+	if(aRank > bRank)
+		return 1;
+
+	//card B is higher
+	return -1;
+};
+
+function logArrayElements(element, index, array) {
+  console.log('a[' + index + '] = ' + element.name);
+}
+
+// Note elision, there is no member at 2 so it isn't visited
+deckOfCards.arr.forEach(logArrayElements);
 
 
-deckOfCards.sort(/* ascending-by-suit comparison function here */);
+deckOfCards.sort(sortBySuitAndRank);
 deckOfCards.cut();
 assert(deckOfCards.top().name() === 'King of Diamonds', 'Failed King of Diamonds test');
 
